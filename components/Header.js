@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { APP_NAME } from '../config';
+import { useState } from "react"
+import Link from "next/link"
+import { APP_NAME } from "../config"
 import {
   Collapse,
   Navbar,
@@ -11,34 +12,40 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
-} from 'reactstrap';
+  DropdownItem,
+} from "reactstrap"
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const toggle = () => {
-    setIsOpen(!isOpen);
-  };
+    setIsOpen(!isOpen)
+  }
 
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">{APP_NAME}</NavbarBrand>
+        <Link href="/">
+          <NavLink className="font-weight-bold">{APP_NAME}</NavLink>
+        </Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <Link href="/signup">
+                <NavLink>Signup</NavLink>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+              <Link href="/signin">
+                <NavLink>Signin</NavLink>
+              </Link>
             </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
