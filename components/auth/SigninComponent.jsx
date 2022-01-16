@@ -1,10 +1,9 @@
 import { useState } from "react"
-import { signin } from "../../actions/auth"
+import { signin, authenticate } from "../../actions/auth"
 import Router from "next/router"
 
 const SigninComponent = () => {
   const [values, setValues] = useState({
-    name: "",
     email: "",
     password: "",
     loading: false,
@@ -12,7 +11,7 @@ const SigninComponent = () => {
     showForm: true,
   })
 
-  const { name, email, password, error, loading, message, showForm } = values
+  const { email, password, error, loading, message, showForm } = values
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -27,7 +26,9 @@ const SigninComponent = () => {
         // save user token to cookie
         // save user info to localStorage
         // authenticate user
-        Router.push("/")
+        authenticate(data, () => {
+          Router.push("/")
+        })
       }
     })
   }
@@ -46,15 +47,6 @@ const SigninComponent = () => {
   const signinForm = () => {
     return (
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <input
-            value={name}
-            onChange={handleChange("name")}
-            type="text"
-            className="form-control"
-            placeholder="Type your name"
-          />
-        </div>
         <div className="form-group">
           <input
             value={email}
